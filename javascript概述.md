@@ -84,29 +84,29 @@ fn(a,b)
  dom对象  dom集合
 
 ###   选取元素
-  * var one=document.getElementById()
-  * var one=document.getElementsByClassName()
-  * var one=document.getElementsByTagName()
-  * var one=document.getElementsByTagName("*")
+> var one=document.getElementById()
+> var one=document.getElementsByClassName()
+> var one=document.getElementsByTagName()
+> var one=document.getElementsByTagName("*")
 ###   筛选元素
-  * getchilds 
-  * 
-  * 
-  * 
+> getchilds 
+> 
+> 
+> 
 ###   样式操作
-  * one.style.height=""
-  * one.length
-  * one.innerHTML
+> one.style.height=""
+> one.length
+> one.innerHTML
 ###   获取位置信息
-  * 
-  * 
-  * 
-  * 
-  * 
-  * 
+> 
+> 
+> 
+>
+> 
+> 
 ###   属性操作
-  *
-  * 
-  * 
-  * 
+>
+> 
+> 
+> 
 ###   节点操作 
