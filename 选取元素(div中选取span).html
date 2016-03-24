@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选取元素</title>
+</head>
+<style>
+	.box{
+		height: 500px;
+		width: 500px;
+		border:1px solid red;
+		margin:20px auto;
+		position: relative;
+	}
+	.small_box{
+		height: 50px;
+		width: 50px;
+		border:1px solid black;
+		position: absolute;
+	}
+	.span{
+		height: 50px;
+		width: 50px;
+		border:1px solid black;
+		display: block;
+		position: absolute;
+	}
+	li{
+		cursor: default;
+	}
+
+</style>
+<body>
+	<div class="box"></div>
+    <ul>
+    	<li cla="tag1">点击类名</li>
+    	<li cla="tag2">点击标签</li>
+    	<li cla="tag3">点击Id</li>
+    	<li cla="tag4">点击css获取</li>
+    </ul>
+
+</body>
+<script>
+   
+	var box=document.getElementsByClassName("box")[0];
+    var rm=Math.floor(Math.random()*10);
+	var drop=function  () {
+		for(var i=0,el;i<10;i++){
+		var el;
+		if(i===rm){
+			el=document.createElement("span");
+			el.className="span";
+		}else{
+			el=document.createElement("div");
+			el.className="small_box";
+		}
+		box.appendChild(el);
+		el.style.left=Math.floor(Math.random()*(box.offsetWidth-50))+"px";
+        el.style.top=Math.floor(Math.random()*(box.offsetHeight-50))+"px";
+	}
+
+	}
+    drop();
+
+    var els=box.nextElementSibling.children;
+    for(var i=0;i<els.length;i++){
+    els[i].onclick=function(){
+          var type=this.getAttribute("cla");
+          var el;
+          if(type==="tag1"){
+            el=document.getElementsByClassName("span")[0];
+          }else if(type==="tag2"){
+            el=document.getElementsByTagName("span")[0];
+          }else if(type==="tag3"){
+            el=document.getElementById("span");
+          }else if(type==="tag4"){
+            el=document.querySelector("span");
+          }
+
+    	var el=document.getElementsByClassName("span")[0];
+    	    el.style.background="red";
+    	setTimeout(function(){
+    		el.style.background="none";
+    		box.innerHTML="";
+    		drop();
+    	},200)
+    }
+}
+ //    var span=document.createElement("span");
+ //      span.className="span";
+ //      box.appendChild(span);
+ //      span.style.left=Math.floor(Math.random()*(box.offsetWidth-50))+"px";
+ //      span.style.top=Math.floor(Math.random()*(box.offsetHeight-50))+"px";
+	// var tag=document.getElementsByClassName("tag")[0];
+ //     tag.onclick=function(){
+ //     	span.style.background="red";	   
+ //     }
+ //     tag.onmouseout=function(){
+ //     	span.style.background="none"
+ //        box.innerHTML="";
+ //        drop();
+ //     }
+     
+           
+</script>
+</html>
