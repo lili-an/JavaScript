@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>这是轮播</title>
+     <style>
+       .box{
+        width: 730px;
+        height: 454px;
+        margin: 0px auto;
+        border: 2px solid red;
+        overflow: hidden;
+        position: relative;
+       }
+       div{
+       	display: block;
+       }
+       img{
+       	border:0;
+       	vertical-align: middle;
+       	position: absolute;
+       }
+       .rl{
+	    position: absolute;
+	    right: 28px;
+	    top: 42%;
+       }
+       .lr a{
+ 	    width: 28px;
+ 	    height: 62px;
+ 	    position: absolute;
+        top: 42%;
+ 	    left: 0;
+        z-index:4; 
+        font-family: simsun;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 62px;
+        display: block;
+        color: #fff;
+        background: gray;
+       }
+       .rl a{
+ 	    width: 28px;
+ 	    height: 62px;
+ 	    position: absolute;
+        z-index:4; 
+        font-family: simsun;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 62px;
+        display: block;
+        color: #fff;
+        background: gray;
+       }
+    
+     </style>
+</head>
+<body>
+	<div class="box">
+		<a href="javascript:;" class="pic"><img src="./image/m1.jpg"></a>
+		<a href="javascript:;" class="pic"><img src="./image/m2.jpg"></a>
+		<a href="javascript:;" class="pic"><img src="./image/m3.jpg"></a>
+		<a href="javascript:;" class="pic"><img src="./image/m4.jpg"></a>
+		<a href="javascript:;" class="pic"><img src="./image/m5.jpg"></a>
+		<a href="javascript:;" class="pic"><img src="./image/m6.jpg"></a>
+		<div class="lr"><a href="javascript:;"><</a></div>
+    <div class="rl"><a href="javascript:;">></a></div>
+    <ul>
+      <li class="aa"></li>
+      <li class="aa"></li>
+      <li class="aa"></li>
+      <li class="aa"></li>
+      <li class="aa"></li>
+      <li class="aa"></li>
+    </ul>
+	</div>
+	
+</body>
+<script>
+	window.onload=function(){
+          var box=document.getElementsByClassName("box")[0];
+          var imgs=document.getElementsByClassName("pic");
+          var lr=document.getElementsByClassName("lr")[0];
+          var rl=document.getElementsByClassName("rl")[0];
+          var t;
+          var num=0;
+          t=setInterval(move,1000);
+          box.onmouseover=function(){
+          	  clearInterval(t)
+              lr.style.display="block"
+              rl.style.display="block"
+          }
+           box.onmouseout=function(){
+          	t=setInterval(move,1000)
+            lr.style.display="none"
+            rl.style.display="none"
+          }
+
+
+          function move(){
+          	num++;
+          	if(num==imgs.length){
+          		num=0;
+          	}
+          	for(var i=0;i<imgs.length;i++){
+               imgs[i].style.display="none";
+          	}
+            imgs[num].style.display="block";
+          }
+
+          
+          rl.onclick=function(){
+           move();
+          }
+          lr.onclick=function(){
+          num--;
+          if(num<0){
+          num=imgs.length-1;
+         }
+         for(var i=0;i<imgs.length;i++){
+                imgs[i].style.display="none";
+            }
+            imgs[num].style.display="block";
+        }
+
+	}
+</script>
+</html>
