@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+       .box{
+       	width: 1550px;
+       	height: 800px;
+       	border:1px solid orange;
+       	position: relative;
+       	overflow: hidden;
+       }
+       .zi{
+       	padding:25px 25px;
+       	display: inline-block;
+        background: orange;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        /*transition:all .5s ease;*/
+        position: absolute;
+       }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<!-- <div class="zi">a</div> -->
+	</div>	
+</body>
+<script>
+    // var box=document.querySelector(".box");
+    // document.onkeyup=function (e) {
+    // 	var key=String.fromCharCode(e.keyCode).toLowerCase();
+    //     if(key===" "){
+    //     	box.removeChild(box.firstElementChild);
+    //     	var el=document.createElement("div")
+    //     	el.className="zi";
+    //     	el.innerHTML=String.fromCharCode(Math.floor(Math.random()*10000+10000));
+    //     	var r=Math.floor(Math.random()*255);
+    //     	var g=Math.floor(Math.random()*255);
+    //     	var b=Math.floor(Math.random()*255);
+    //     	el.style.background="rgb("+r+","+g+","+b+")";
+    //     	box.appendChild(el);
+    //     }
+    // }
+        //    var box=document.querySelector(".box");
+        //    var zimujihe={};
+        //    var zimu=String.fromCharCode(Math.floor(Math.random()*26+97)) 
+        //    var zm=function(z){
+        //    var el=document.createElement("div");
+        //    el.className="zi";
+        //    el.innerHTML=z;
+        //    box.appendChild(el);
+        //    zimujihe[z]=el;
+        // }
+        // zm(zimu);
+        //    document.onkeyup=function(e){
+        //      var key=String.fromCharCode(e.keyCode).toLowerCase();
+        //      if(zimujihe[key]){
+        //      	zimujihe[key].parentElement.removeChild(zimujihe[key]);
+        //      	delete zimujihe[key];
+        //      	// box.removeChild(box.firstElementChild);
+        //         var zimu=String.fromCharCode(Math.floor(Math.random()*26+97)) 
+        //         zm(zimu);
+        //      }
+        //    }
+
+
+
+        // var box=document.querySelector(".box");
+        // var zimujihe={};
+        // var shuliang=5;
+        // var  createzimu=function(){	
+        // 	var el=document.createElement("div");  
+        // 	do{
+        // 	var zimu=String.fromCharCode(Math.floor(Math.random()*26+97))
+        // }while(zimujihe[zimu])
+        // 	el.className="zi";
+        // 	el.innerHTML=zimu;
+        // 	zimujihe[zimu]=el;
+        // 	var r=Math.floor(Math.random()*255);
+        // 	var g=Math.floor(Math.random()*255);
+        // 	var b=Math.floor(Math.random()*255);
+        // 	el.style.background="rgb("+r+","+g+","+b+")";
+        // 	box.appendChild(el);
+        // 	el.style.left=Math.floor(Math.random()*(box.offsetWidth-el.offsetWidth))+"px";  
+        // }
+        // for(var i=0;i<shuliang;i++){
+        // 	createzimu(); 
+        // }          
+        // var  removezimu=function(key){
+        // 	zimujihe[key].parentElement.removeChild(zimujihe[key]);
+        // 	delete zimujihe[key];
+        // }   
+        // document.onkeyup=function(e){
+        // 	if(e.keyCode===32){
+        // 		kaiguan();
+        // 	}
+        // 	var  key=String.fromCharCode(e.keyCode).toLowerCase();
+        // 	if(zimujihe[key]){
+        // 		removezimu(key);
+        // 		createzimu();
+        // 	}
+        // }
+
+        // var diao=function(){
+        // 	var arr=[];
+        // 	for(var i in zimujihe){	
+        // 		console.log(i);
+        // 		var el=zimujihe[i];
+        // 		var run=Math.ceil(Math.random()*5);
+        // 		el.style.top=el.offsetTop+run+"px";
+        // 		if(el.offsetTop>box.offsetHeight){
+        // 			arr.push(i);
+        // 		}
+        // 	}
+        // 	if(arr.length!==0){
+        // 		removezimu(arr[0])
+        // 		createzimu();
+        // 	}
+        // }
+
+        // var ss=setInterval(diao,20);
+        // var kaiguan=function(){
+        // 	if(ss){
+        // 		clearInterval(ss);
+        // 		ss=null;
+        // 	}else{
+        // 		ss=setInterval(diao,20);
+        // 	}
+        // }
+
+
+         
+
+        var box=document.querySelector(".box");
+        var zimujihe={};
+        var shuliang=26;
+        var  createzimu=function(){	
+        	var el=document.createElement("div");  
+        	do{
+        		var zimu=String.fromCharCode(Math.floor(Math.random()*26+97))
+        	}while(zimujihe[zimu])  
+        	el.className="zi";
+        	el.innerHTML=zimu;
+        	var run=Math.ceil(Math.random()*5);
+        	zimujihe[zimu]={top:0,yuansu:el,off:run};
+        	console.log(zimujihe);
+        	var r=Math.floor(Math.random()*255);
+        	var g=Math.floor(Math.random()*255);
+        	var b=Math.floor(Math.random()*255);
+        	el.style.background="rgb("+r+","+g+","+b+")";
+        	box.appendChild(el);
+        	el.style.left=Math.floor(Math.random()*(box.offsetWidth-el.offsetWidth))+"px";  
+        }
+        for(var i=0;i<shuliang;i++){
+        	createzimu(); 
+        }          
+        var  removezimu=function(key){
+        	zimujihe[key].yuansu.parentElement.removeChild(zimujihe[key].yuansu);
+        	delete zimujihe[key];
+        }   
+        document.onkeyup=function(e){
+        	if(e.keyCode===32){
+        		kaiguan();
+        	}
+        	var  key=String.fromCharCode(e.keyCode).toLowerCase();
+        	if(zimujihe[key]){
+        		removezimu(key);
+        		createzimu();
+        	}
+        }
+        var HH=box.offsetHeight;
+        var diao=function(){
+        	var arr=[];
+        	for(var i in zimujihe){	
+        		var data=zimujihe[i];
+        		var el=data.yuansu;
+        		data.top+=data.off;
+        		el.style.top=data.top+"px";
+        		if(data.top>HH){
+        			arr.push(i);
+        		}
+        	}
+        	if(arr.length){
+        		for(var i=0;i<arr.length;i++){
+        			removezimu(arr[i])
+        			createzimu();
+        		}
+        	}
+        }
+
+        var ss=setInterval(diao,20);
+        var kaiguan=function(){
+        	if(ss){
+        		clearInterval(ss);
+        		ss=null;
+        	}else{
+        		ss=setInterval(diao,20);
+        	}
+        }
+
+
+</script> 
+</html>
