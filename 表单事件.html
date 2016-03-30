@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>	
+		ul li{
+			padding: 0;
+			margin: 0;
+		}
+		.box{
+			height: 400px;
+			width: 300px;
+			border:1px solid #ccc;
+			position: absolute;
+			padding: 50px 50px;
+			margin:auto;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
+		.box li{
+			list-style: none;
+		}
+		.box input{
+			outline: none;
+			border:none;
+			border-bottom: 1px solid #ccc;
+			width: 100%;
+			padding:15px 5px ;
+		}
+		.box li span{
+			color: #ccc;
+		}
+		.colorred{
+			border-radius: 15%;
+			opacity:0.5; 
+			background: green;
+			display: inline-block;
+			font-size: 20px; 
+			color: white;
+		}
+		.colororange{
+			color: orange;
+			border-radius: 15%;
+			opacity:0.5; 
+			background: green;
+			display: inline-block;
+			font-size: 30px;
+		}
+		.btn{
+			display: inline-block;
+			padding: 10px 20px;
+			background: #ccc;
+			color: #999;
+			margin: 30px 80px;
+		}
+		.btncolor{
+			cursor: pointer;
+			background: orange;
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<ul class="box">
+		<li>
+			<input type="text" value="" name="cc"> <span class="tip"></span> <br/> 
+		</li>
+		<li>
+			<input type="password" value="" name="aa"> <span class="tip"></span> <br/> 
+		</li>
+		<li>
+			<input type="password" value="" name="ff"> <span class="tip"></span> <br/>
+		</li>
+		<li>
+			<div class="btn">注册</div>
+		</li>
+    <!-- 性别:男<input type="radio" value="nan" name="bb">
+         女<input type="radio" value="nv" name="bb">
+         中<input type="radio" value="zhong" name="bb"><br/>
+    爱好:球<input type="checkbox" value="checkbox" name="dd">
+         球<input type="checkbox" value="checkbox" name="dd">
+         球<input type="checkbox" value="checkbox" name="dd"><br/>
+    <select name="ee" id="ee"><br/>
+    	<option value="">蓝翔</option>
+    	<option value="">蓝翔技校</option>
+    	<option value="">蓝翔挖掘机</option>
+    </select> -->
+    </ul>
+</body>
+<script>
+       
+        // var users={"zhangsan":true,"lisi":true,"wangwu":true} 
+        // var users=["zhangsan","lisi"];
+        var aa=document.getElementsByName("aa")[0];
+        var cc=document.getElementsByName("cc")[0];
+        var ff=document.getElementsByName("ff")[0];
+        var gg=document.getElementsByClassName("btn")[0];
+        // var check=function(e){
+        // 	for(var i=0;i<users.length;i++){
+        // 		if(users[i]==e){
+        // 			return true;
+        // 		}
+        // 	}
+        // 	return false;
+        // }
+        var tianjiajinggao=function(el,info){
+        	el.innerHTML=info;
+        	el.classList.add("colorred");
+        }
+        var shanchujinggao=function(el){
+        	el.innerHTML=" ";
+        	el.classList.remove("colorred");
+        }
+
+        var state={yi:false,er:false,san:false}
+        var check=function(){
+        	if(state.yi&&state.er&&state.san){
+        		gg.classList.add("btncolor");
+        		gg.setAttribute("shifou","neng")
+        	}else{
+        		gg.classList.remove("btncolor");
+        		gg.removeAttribute("shifou")
+        	}
+        }
+        gg.onclick=function(){
+        	if( gg.hasAttribute("shifou") ){
+        		gg.innerHTML="注册中......"
+        		setTimeout(function(){
+        	     location.href="键盘事件.html"
+        		},2000)
+        		
+        	}
+        }
+
+        
+        var users={};
+        for(var i=0;i<100;i++){
+        	users["item"+i]=true;
+        }
+
+        cc.onchange=function(){
+        	var span=this.parentElement.querySelector(".tip");
+        	if(users[this.value]){
+               // span.innerHTML="用户名已存在"
+               // span.classList.add("colorred")
+               tianjiajinggao(span,"用户名已存在");
+               state["yi"]=false;
+           }else{
+           	state["yi"]=true;
+           	shanchujinggao(span);
+               // span.innerHTML=" ";
+               // span.classList.remove("colorred");
+           }
+           check();
+       }
+
+        aa.onchange=function(){
+       	var span=this.parentElement.querySelector(".tip");
+       	if( aa.value.length<6 ){
+       		tianjiajinggao(span,"请输入正确的字符");
+            // span.innerHTML="请输入正确的字符"
+            // span.classList.add("colororange");
+            state["er"]=false;
+        }else{
+        	state["er"]=true;
+        	shanchujinggao(span);
+          	// span.innerHTML=" "; 
+          	// span.classList.remove("colororange");
+          }
+          check();
+      }
+
+      ff.onchange=function(){
+      	var span=this.parentElement.querySelector(".tip");
+      	if(this.value!==aa.value){
+      		tianjiajinggao(span,"错啦");
+            //    span.innerHTML="错啦";
+        	   // span.classList.add("colorred");
+        	   state["san"]=false;
+        	}else{
+        		state["san"]=true;
+        		shanchujinggao(span);
+        		// span.innerHTML=" ";
+        		// span.classList.remove("colorred");
+        	}
+        	check();
+        }
+        
+       
+
+
+
+
+
+     
+</script>
+</html>
