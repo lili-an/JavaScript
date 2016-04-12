@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学生管理系统</title>
+	<style>
+     .formbox{
+     	position: relative;
+     	width: 800px;
+     	margin: 0 auto;
+     	padding: 40px;
+        border: 1px solid black;
+        text-align: center;
+     }
+     .formbox table{
+        width: 100%;
+     }
+     .formbox table span{
+     	padding: 0 3px;
+     	cursor: wait;
+     }
+     #line td{
+     	border-bottom: 2px solid black;
+     }
+     .formbox td{
+     	width: 15.66%;
+     	border-bottom: 1px solid #333;
+     	display: block;
+     	float: left;
+     	padding: 10px 0px;
+     	height: 20px;
+     }
+     .add{
+     	font-weight: bold;
+     	width: 400px;
+     	padding: 10px 0;
+     	display: inline-block;
+     	color: #fff;
+     	background: orange;
+     	cursor: pointer;
+     }
+     .remove{
+        position: absolute;
+        width: 80px;
+        height: 38px;
+        right: 17%;
+        bottom: 7%;
+        line-height: 38px;
+        background: #e4500f;
+        cursor: pointer;
+        font-weight: bold;
+     }
+     input{
+     	width: 50%;
+     	outline: none;
+     	border: none;
+     	text-align: center;
+     	border-bottom: 1px solid #ccc;
+     }
+     .tip{
+        position: absolute;
+        top: 5%;
+        left: 80%;
+        color: #e4500f;
+        font-weight: bold;
+        font-size: 20px;
+        display: none;
+     }
+	</style>
+</head>
+<body>
+	<div class="formbox">
+	 <div class="tip">OK</div>
+		<h1>学生管理系统</h1>
+		<table class="table">
+		   <thead>
+			<tr id="line">
+				<td data_role="id">学号</td>
+				<td data_role="name">姓名</td>
+				<td data_role="sex">性别</td>
+				<td data_role="guanji">籍贯</td>
+				<td data_role="location">地址</td>
+				<td><input type="checkbox" class="chaozuo"></td>
+			</tr>
+			<!-- <tr>
+				<td>01</td>
+				<td>张三</td>
+				<td>男</td>
+				<td>山西</td>
+				<td>太原</td>
+				<td><span>编辑</span><span>删除</span></td>
+			</tr>-->
+			</thead>
+		   <tbody class="tbody">
+		   </tbody>
+		</table>
+		<div class="add"><span>新增+</span></div>
+        <div class="remove"><span>删除</span> </div>
+	</div>
+</body>
+<script>
+    var tip=document.querySelector(".tip");
+    if(localStorage.students){
+    	var students=JSON.parse(localStorage.students);
+    }else{
+     var students=[{id:01,name:"谷歌",sex:"男",guanji:"山西",location:"太原"},
+     {id:02,name:"谷歌",sex:"女",guanji:"山西",location:"长治"},
+     {id:03,name:"谷歌",sex:"男",guanji:"山西",location:"朔州"},
+     {id:04,name:"谷歌",sex:"女",guanji:"山西",location:"运城"},
+     {id:05,name:"谷歌",sex:"男",guanji:"山西",location:"太原"}
+     ]
+     localStorage.setItem("students",JSON.stringify(students));
+ }
+
+    var tbody=document.querySelector(".tbody");
+    for(var i in students){
+      var _d=students[i];
+      var el=document.createElement("tr");
+      el.setAttribute("data_id",_d.id);
+      el.innerHTML='<td>'+_d.id+'</td><td data_role="name">'+_d.name+'</td><td data_role="sex">'+_d.sex+'</td><td data_role="guanji">'+_d.guanji+'</td><td data_role="location">'+_d.location+'</td><td><input type="checkbox" class="rm" value="'+_d.id+'"></td>';
+      tbody.appendChild(el);
+  }
+  tbody.onclick=function(e){
+      var el=e.target;
+      if(el.nodeName==="TD"){
+        if(tbody.querySelector(".editing")){
+            Edit(tbody.querySelector(".editing"));
+        }
+        Edit(el.parentElement);
+    }else if(el.classList.contains("rm")){
+      var els=document.querySelectorAll(".rm");
+      for(var i=0,el,j=0; i<els.length;i++){
+        el=els[i];
+        if(el.checked){
+            j+=1      
+        }
+
+    }if(j===els.length){
+      chaozuo.checked=true ;
+  }else{
+    chaozuo.checked=false;
+}
+}
+}
+	// var shanchu=function(e){
+	//    tbody.removeChild(this.parentElement.parentElement)
+	//    var delete_item=parseInt(this.getAttribute("data_1"));
+	//    var newstudents=[];
+	//    for(var i in students){ 	
+	//    	var v=students[i];
+	//    	if( v.id !== delete_item){
+ //           newstudents.push(v);
+	//    	}
+	//    }
+ //      students=newstudents;
+ //      localStorage.setItem("students",JSON.stringify(students));
+	// }
+
+    var chaozuo=document.querySelector(".chaozuo");
+    var remove=document.querySelector(".remove");
+    remove.onclick=function(){
+      var els=document.querySelectorAll(".rm");
+      for(var i=0,el; i<els.length;i++){
+       el=els[i];
+       if(el.checked){
+          tbody.removeChild(el.parentElement.parentElement);
+          deletestu(el.value);
+      }
+  }
+
+}
+var deletestu=function(el){
+    var ela=Number(el);
+    var newstudents=[];
+    for(var i in students){  
+        var v=students[i];
+        if( v.id !== ela){
+           newstudents.push(v);
+       }
+   }
+   students=newstudents;
+   localStorage.students=JSON.stringify(students);
+}
+
+chaozuo.onclick=function(){
+   var els=document.querySelectorAll(".rm");
+   for(var i=0; i<els.length;i++ ){
+    els[i].checked=chaozuo.checked;
+}
+}
+
+var add=document.querySelector(".add");
+add.onclick=function(){
+		// var xuehao=students[students.length-1].id+1;
+		var xuehao=(students.length)?(students[students.length-1].id+1):01;
+		var _d={id:xuehao,name:"",sex:"",guanji:"",location:""};
+		students.push(_d);
+		localStorage.setItem("students",JSON.stringify(students));
+		var tr=document.createElement("tr");
+		tr.setAttribute("data_id",_d.id);
+		tr.innerHTML='<td>'+_d.id+'</td><td data_role="name">'+_d.name+'</td><td data_role="sex">'+_d.sex+'</td><td data_role="guanji">'+_d.guanji+'</td><td data_role="location">'+_d.location+'</td><td><input type="checkbox" class="rm" value="'+_d.id+'"></td>';
+		tbody.appendChild(tr);
+		Edit(tr);
+	}
+
+	var Edit=function(tr){
+       var els=tr.querySelectorAll("td[data_role]");
+       if( tr.classList.contains("editing") ){
+          for (var i=0; i<els.length; i++) {
+           var el=els[i];
+           var temp=el.querySelector("input").value;
+           el.innerHTML=temp;
+       }
+       tr.classList.remove("editing")
+   }else{  
+     for (var i=0; i<els.length; i++) {
+      var el=els[i];
+      var temp=el.innerHTML;
+      el.innerHTML='<input type="text" value="'+temp+'">';		   	   
+  }	
+  tr.classList.add("editing");
+  els[1].querySelector("input").focus();	  
+}
+}
+
+var timerid; 
+tbody.onkeyup=function(e){
+  var el=e.target;
+  var value=el.value;
+  var key=el.parentElement.getAttribute("data_role");
+  var xuehao=el.parentElement.parentElement.getAttribute("data_id");
+  clearTimeout(timerid);
+  timerid=setTimeout(function(){
+      updatestedents(xuehao,key,value);
+      tip.style.display="block";       
+  },1000);
+  tip.style.display="none";
+}
+
+var updatestedents=function(id,k,v){
+  var id=Number(id);
+  for(var i=0;i<students.length;i++){
+   if(students[i].id===id){
+    students[i][k]=v;  		
+}
+localStorage.students=JSON.stringify(students);
+}
+}
+
+var thead=document.querySelector(".table thead");
+thead.onclick=function(e){
+     var el=e.target;
+   if(el.nodeName==="TD"){
+    var sortkey=el.getAttribute("data_role");
+    var state=(el.getAttribute("flag")==="true")?true:false;
+    el.setAttribute("flag",!state);
+    students=students.sort(function(x,y){
+        return state?(x[sortkey]<y[sortkey]):(x[sortkey]>y[sortkey]);
+    })
+       localStorage.students=JSON.stringify(students);
+       tbody.innerHTML='';
+      for(var i in students){
+      var _d=students[i];
+      var el=document.createElement("tr");
+      el.setAttribute("data_id",_d.id);
+      el.innerHTML='<td>'+_d.id+'</td><td data_role="name">'+_d.name+'</td><td data_role="sex">'+_d.sex+'</td><td data_role="guanji">'+_d.guanji+'</td><td data_role="location">'+_d.location+'</td><td><input type="checkbox" class="rm" value="'+_d.id+'"></td>';
+      tbody.appendChild(el);
+}
+   }
+
+}
+
+     // sort函数  input.checked=true||false
+</script>
+</html>
