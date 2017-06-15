@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝自动轮播</title>
+	<style>
+        *{
+        	padding: 0;
+        	margin:0;
+        }
+        #div1{
+        	width: 750px;
+        	height: 500px;
+        	margin:100px auto;
+        	position: relative;
+        	overflow: hidden;
+        }
+        #div1 ul{
+        	position: absolute;
+        	left: 0;
+        	top: 0;
+        }
+        #div1 ul li{
+        	float: left;
+        	list-style: none;
+        	width: 720px;
+        	height: 500px;
+        }
+        a{
+        	margin-left: 300px;
+        	color: red;
+        	font-size: 20px;
+        	font-weight: bold;
+        }
+        #a{
+        	margin-top: 100px;
+        }
+	</style>
+</head>
+<body>
+    <div id="a">
+    <a href="javascript:;" id="id1">向左</a>
+    <a href="javascript:;" id="id3">暂停</a>
+    <a href="javascript:;" id="id2">向右</a>
+    </div>
+	<div id="div1">
+	<ul>
+		<li><img src="./image/m1.jpg"></li> 
+		<li><img src="./image/m2.jpg"></li>
+		<li><img src="./image/m3.jpg"></li>
+		<li><img src="./image/m4.jpg"></li>
+		<li><img src="./image/m5.jpg"></li>
+		<li><img src="./image/m6.jpg"></li>
+	</ul>
+	</div>
+</body>
+<script>
+    window.onload=function(){
+        var divs=document.getElementById("div1");
+        var UL=document.getElementsByTagName("ul")[0];
+        var LI=document.getElementsByTagName("li");
+         
+        UL.innerHTML=UL.innerHTML+UL.innerHTML;        
+        UL.style.width=LI[0].offsetWidth*LI.length+"px";
+              
+        // 移动速度
+        var speed=2;
+               
+        //控制滚动的方向
+        var a1=document.getElementById("id1");  
+        var a2=document.getElementById("id2");  
+        var a3=document.getElementById("id3");  
+             
+        a1.onclick=function(){
+            speed=2;
+        }
+        a2.onclick=function(){
+            speed=-2;
+        }
+        a3.onclick=function(){      
+            speed=0;
+        }
+                 
+        //封装  
+        function  move(){
+            if(UL.offsetLeft<-UL.offsetWidth/2){
+                UL.style.left="0";
+            }
+                 
+            if(UL.offsetLeft>0){
+                UL.style.left=-UL.offsetWidth/2+"px";
+            }   
+
+            UL.style.left=UL.offsetLeft-speed+"px";              
+        }
+         
+        //定时器  控制移动的时间
+        var t=setInterval(move,30);
+             
+        //鼠标移入
+        divs.onmouseover=function(){
+            clearInterval(t);
+        }
+                 
+        //鼠标移开
+        divs.onmouseout=function(){
+            t=setInterval(move,30);
+        }                    
+    }
+</script>
+</html>
