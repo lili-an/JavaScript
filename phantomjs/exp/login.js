@@ -7,8 +7,8 @@ page.open(url, function() {
     	var username = document.getElementById('username');
 		var password = document.getElementById('pwd');
 		var btn = document.getElementById('login-button');
-            username.value='929420309@qq.com'
-            password.value='wang0000'
+            username.value=''
+            password.value=''
             btn.click();
         });
     setTimeout('print_cookies()',10000)

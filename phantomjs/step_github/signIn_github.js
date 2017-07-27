@@ -24,7 +24,7 @@ var steps = [
             var form = document.getElementsByTagName('form')[0];
             var btn = document.getElementsByClassName('btn-block')[0];
             form.elements["login_field"].value = '707865641@qq.com';
-            form.elements["password"].value = 'wang0000';
+            form.elements["password"].value = '';
             btn.click();
 
             return document.title;

@@ -20,8 +20,8 @@ var steps = [
     function() {
         page.evaluate(function(obj) {
             var form = document.getElementById("login-main-form");
-            form.elements["username"].value = '929420309@qq.com';
-            form.elements["pwd"].value = 'wang0000';
+            form.elements["username"].value = '';
+            form.elements["pwd"].value = '';
             form.elements['login-button'].click();
 
             return document.title;
